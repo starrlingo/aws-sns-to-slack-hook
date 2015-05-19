@@ -27,4 +27,4 @@ Use AWS Lambda to forward message to Slack from SNS
 ## Create Lambda Function with sns-slack.js code
 ## AWS SNS Topic Subscription for AWS Lambda
 * Select topic you want and subscirpt to it
-* select AWS Lambda as Protocl and select Lambda function
+* select AWS Lambda as Protocol and select Lambda function
