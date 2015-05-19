@@ -24,7 +24,7 @@ Use AWS Lambda to forward message to Slack from SNS
   2. add a Incoming WebHooks service integration
   3. get the webhook url
 
-## Create Lambda Function with js code
+## Create Lambda Function with sns-slack.js code
 ## AWS SNS Topic Subscription for AWS Lambda
 * Select topic you want and subscirpt to it
 * select AWS Lambda as Protocl and select Lambda function
