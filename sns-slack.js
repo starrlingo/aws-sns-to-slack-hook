@@ -3,7 +3,7 @@ console.log('Loading function');
 const https = require('https');
 const url = require('url');
 // to get the slack hook url, go into slack admin and create a new "Incoming Webhook" integration
-const slack_url = 'https://hooks.slack.com/services/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';
+const slack_url = 'https://hooks.slack.com/services/..../..../.....';  //fill the slack webhook url here
 const slack_req_opts = url.parse(slack_url);
 slack_req_opts.method = 'POST';
 slack_req_opts.headers = {'Content-Type': 'application/json'};
@@ -25,6 +25,7 @@ exports.handler = function(event, context) {
       });
       
       try {
+          // if message format is JSON
           req.write(
               JSON.stringify(
                   {text:JSON.stringify(JSON.parse(rec.Sns.Message), null, 4)}
@@ -32,6 +33,7 @@ exports.handler = function(event, context) {
           );
       }
       catch(err) {
+          // if message format is not JSON
           req.write(
               JSON.stringify(
                   {text:JSON.stringify(rec.Sns.Message, null, 4)}
