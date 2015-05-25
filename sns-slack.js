@@ -36,8 +36,8 @@ exports.handler = function(event, context) {
           // if message format is not JSON
           req.write(
               JSON.stringify(
-                  {text:JSON.stringify(rec.Sns.Message, null, 4)}
-              )
+                  {text:rec.Sns.Message}
+              )              
           );
       }      
       req.end();
