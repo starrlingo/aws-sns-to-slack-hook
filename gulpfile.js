@@ -73,7 +73,7 @@ gulp.task('upload', function() {
     };
 
     fs.readFile('./dist.zip', function(err, data) {
-      params['ZiFile'] = data;
+      params['ZipFile'] = data;
       lambda.updateFunctionCode(params, function(err, data) {
         console.log('update function', err, data);
         if (err) {
