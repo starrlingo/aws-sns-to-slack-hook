@@ -10,9 +10,7 @@ var runSequence = require('run-sequence');
 
 // First we need to clean out the dist folder and remove the compiled zip file.
 gulp.task('clean', function(cb) {
-  del('./dist',
-    del('./archive.zip', cb)
-  );
+  del(['./dist', './dist.zip'], cb)
 });
 
 // The js task could be replaced with gulp-coffee as desired.
@@ -69,8 +67,9 @@ gulp.task('upload', function() {
       }
     }
 
+    console.log('data',  data.Configuration.FunctionArn);
     var params = {
-      FunctionName: functionName
+      FunctionName: data.Configuration.FunctionArn
     };
 
     fs.readFile('./dist.zip', function(err, data) {
