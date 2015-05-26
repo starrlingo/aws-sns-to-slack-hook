@@ -6,7 +6,7 @@ install:
 - npm install
 - npm install -g gulp
 script:
- - echo "SLACK_HOOK_URL=$KBC_SLACK_HOOK_URL" > ./config.env.production
+ - echo "SLACK_HOOK_URL=$SLACK_HOOK_URL" > ./config.env.production
  - gulp
  - gulp zip
  - gulp upload
