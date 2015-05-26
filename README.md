@@ -1,6 +1,6 @@
 AWS-SNS-To-Slack-hook
 ===
-Use AWS Lambda to forward message to Slack from SNS
+Use AWS Lambda (not heroku or on-permise machine) to forward message to Slack from SNS
 
 Why I use AWS Lambda not heroku or any other service:
 * Cheapest  (1 million request only cost 0.20 USD. It is the cheapest service than any cloud-provider service)
