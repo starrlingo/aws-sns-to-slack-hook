@@ -13,6 +13,7 @@ gulp.task('clean', function(cb) {
   del(['./dist', './dist.zip'], cb)
 });
 
+
 // The js task could be replaced with gulp-coffee as desired.
 gulp.task('js', function() {
   gulp.src('index.js')
@@ -33,9 +34,13 @@ gulp.task('env', function() {
     .pipe(gulp.dest('./dist'))
 });
 
+gulp.task('build', ['js', 'npm', 'env'], function() {})
+
+
 // Now the dist directory is ready to go. Zip it.
 gulp.task('zip', function() {
-  gulp.src(['dist/**/*', '!dist/package.json', 'dist/.*'])
+  console.log('zip start');
+  gulp.src(['./dist/**/*', '!./dist/package.json', './dist/.*'])
     .pipe(zip('dist.zip'))
     .pipe(gulp.dest('./'));
 });
@@ -74,6 +79,7 @@ gulp.task('upload', function() {
 
     fs.readFile('./dist.zip', function(err, data) {
       params['ZipFile'] = data;
+      console.log('params', params);
       lambda.updateFunctionCode(params, function(err, data) {
         console.log('update function', err, data);
         if (err) {
@@ -90,9 +96,9 @@ gulp.task('upload', function() {
 gulp.task('default', function(callback) {
   return runSequence(
     ['clean'],
-    ['js', 'npm', 'env'],
-    ['zip'],
-    ['upload'],
+    ['build'],
+    //['zip'],
+    //['upload'],
     callback
   );
 });
