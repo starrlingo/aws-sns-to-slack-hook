@@ -2,6 +2,7 @@ console.log('Loading function');
 require('dotenv').load();
 var async = require('async');
 
+console.log('start', process.env);
 
 // Extract data from the kinesis event
 // to get the slack hook url, go into slack admin and create a new "Incoming Webhook" integration
@@ -14,8 +15,11 @@ const app_name = 'AWS Cloudwatch';
 slack_req_opts.method = 'POST';
 slack_req_opts.headers = {'Content-Type': 'application/json'};
 
+console.log('loaded');
+
 exports.handler = function(event, context) {
 
+  console.log('handler');
   function handlePayload(record, callback) {
     handleData(record.Sns, callback);
   }
@@ -25,6 +29,7 @@ exports.handler = function(event, context) {
 
 
 function handleData(Sns, callback) {
+  console.log('handleData', slack_req_opts);
   var req = https.request(slack_req_opts, function (res) {
     if (res.statusCode === 200) {
       callback(null, 'posted to slack');
