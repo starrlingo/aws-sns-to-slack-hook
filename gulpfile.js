@@ -75,6 +75,7 @@ gulp.task('upload', function() {
     fs.readFile('./dist.zip', function(err, data) {
       params['ZiFile'] = data;
       lambda.updateFunctionCode(params, function(err, data) {
+        console.log('update function', err, data);
         if (err) {
           var warning = 'Package upload failed. '
           warning += 'Check your iam:PassRole permissions.'
