@@ -69,9 +69,8 @@ gulp.task('upload', function() {
       }
     }
 
-    // This is a bit silly, simply because these five parameters are required.
     var params = {
-      FunctionName: functionName,
+      FunctionName: functionName
     };
 
     fs.readFile('./dist.zip', function(err, data) {
