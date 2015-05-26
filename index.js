@@ -8,6 +8,7 @@ var async = require('async');
 const https = require('https');
 const url = require('url');
 const slack_url = process.env.SLACK_HOOK_URL;
+
 const slack_req_opts = url.parse(slack_url);
 const app_name = 'AWS Cloudwatch';
 slack_req_opts.method = 'POST';
