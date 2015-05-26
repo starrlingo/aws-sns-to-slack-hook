@@ -3,3 +3,4 @@ dist/
 dist.zip
 config.env.production
 test/events.log
+.idea
