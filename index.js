@@ -45,32 +45,35 @@ function handleData(Sns, callback) {
 
   var payload = {
     username: app_name,
-    icon_url: 'https://d3iz2gfan5zufq.cloudfront.net/images/cloud-services/cloudsearch32-1.png'
+    icon_url: 'https://d3iz2gfan5zufq.cloudfront.net/images/cloud-services/cloudsearch32-1.png',
+    text: '',
+    mrkdwn: true
   };
   try {
     const message = JSON.parse(Sns.Message);
-    var text = Sns.Subject,
-      attachment = {
+    var attachment = {
         fallback: Sns.Subject,
         pretext: Sns.Subject,
         color: 'danger',
-        fields: []
+        mrkdwn_in: [
+          "text"
+        ]
       };
 
     if (message.AlarmName){
-      attachment.fields.push({
-        title: 'Alarm Name',
-        value: message.AlarmName
-      });
-      attachment.fields.push({
-        title: 'New State Reason',
-        value: message.NewStateReason
-      });
-      attachment.fields.push({
-        title: 'Trigger',
-        value: JSON.stringify(message.Trigger, null, 2),
-        short: false
-      })
+      var attachmentMarkdownLines = [];
+
+      attachmentMarkdownLines.push('*Alarm Name*');
+      attachmentMarkdownLines.push(message.AlarmName);
+
+      attachmentMarkdownLines.push('');
+      attachmentMarkdownLines.push('*New State Reason*');
+      attachmentMarkdownLines.push(message.NewStateReason);
+
+      attachmentMarkdownLines.push('');
+      attachmentMarkdownLines.push('*Trigger*');
+      attachmentMarkdownLines.push(JSON.stringify(message.Trigger, null, 2));
+      attachment.text = attachmentMarkdownLines.join('\n');
     }
 
 
