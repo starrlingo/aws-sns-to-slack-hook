@@ -29,7 +29,7 @@ exports.handler = function(event, context) {
 
 
 function handleData(Sns, callback) {
-  console.log('handleData', slack_req_opts);
+  console.log('handleData', Sns);
   var req = https.request(slack_req_opts, function (res) {
     if (res.statusCode === 200) {
       callback(null, 'posted to slack');
