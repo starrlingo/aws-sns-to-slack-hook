@@ -60,6 +60,7 @@ function handleData(Sns, callback) {
         ]
       };
 
+
     if (message.AlarmName){
       var attachmentMarkdownLines = [];
 
@@ -73,6 +74,13 @@ function handleData(Sns, callback) {
       attachmentMarkdownLines.push('');
       attachmentMarkdownLines.push('*Trigger*');
       attachmentMarkdownLines.push(JSON.stringify(message.Trigger, null, 2));
+      attachment.text = attachmentMarkdownLines.join('\n');
+    }
+
+    if (message['Event Source'] && message.Resource) {
+      var attachmentMarkdownLines = [];
+      attachmentMarkdownLines.push('*Cluster Name*');
+      attachmentMarkdownLines.push(message.Resource);
       attachment.text = attachmentMarkdownLines.join('\n');
     }
 
