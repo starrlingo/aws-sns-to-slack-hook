@@ -54,7 +54,7 @@ function handleData(Sns, callback) {
     var attachment = {
         fallback: Sns.Subject,
         pretext: Sns.Subject,
-        color: 'danger',
+        color: message.NewStateValue === 'OK' ? 'good' : 'danger',
         mrkdwn_in: [
           "text"
         ]
