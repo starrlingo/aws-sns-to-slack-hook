@@ -9,4 +9,5 @@ script:
  - echo "SLACK_HOOK_URL=$SLACK_HOOK_URL" > ./config.env.production
  - gulp
  - gulp zip
- - gulp upload
+ - gulp upload-us
+ - gulp upload-eu

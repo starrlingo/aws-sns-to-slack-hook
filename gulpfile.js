@@ -52,10 +52,10 @@ gulp.task('zip', function() {
 // the case if you have installed and configured the AWS CLI.
 //
 // See http://aws.amazon.com/sdk-for-node-js/
-gulp.task('upload', function() {
 
-  // TODO: This should probably pull from package.json
-  AWS.config.region = 'us-east-1';
+function upload(region) {
+
+  AWS.config.region = region;
   var lambda = new AWS.Lambda();
   var functionName = 'slackNotify';
 
@@ -90,6 +90,14 @@ gulp.task('upload', function() {
       });
     });
   });
+}
+
+gulp.task('upload-us', function () {
+  return upload('us-east-1');
+});
+
+gulp.task('upload-eu', function () {
+  return upload('eu-central-1');
 });
 
 // The key to deploying as a single command is to manage the sequence of events.
