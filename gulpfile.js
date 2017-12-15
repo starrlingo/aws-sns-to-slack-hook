@@ -27,14 +27,9 @@ gulp.task('npm', function() {
     .pipe(install({production: true}));
 });
 
-// Next copy over environment variables managed outside of source control.
-gulp.task('env', function() {
-  gulp.src('./config.env.production')
-    .pipe(rename('.env'))
-    .pipe(gulp.dest('./dist'))
-});
 
-gulp.task('build', ['js', 'npm', 'env'], function() {})
+
+gulp.task('build', ['js', 'npm'], function() {})
 
 
 // Now the dist directory is ready to go. Zip it.

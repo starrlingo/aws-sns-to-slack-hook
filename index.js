@@ -1,5 +1,4 @@
 console.log('Loading function');
-require('dotenv').load();
 var async = require('async');
 
 console.log('start', process.env);
@@ -50,7 +49,8 @@ function handleData(Sns, callback) {
     mrkdwn: true
   };
   try {
-    const message = JSON.parse(Sns.Message);
+    const message = JSON.parse(Sns.Message),
+      attachmentMarkdownLines = [];
     var attachment = {
         fallback: Sns.Subject,
         pretext: Sns.Subject,
@@ -60,9 +60,7 @@ function handleData(Sns, callback) {
         ]
       };
 
-
     if (message.AlarmName){
-      var attachmentMarkdownLines = [];
 
       attachmentMarkdownLines.push('*Alarm Name*');
       attachmentMarkdownLines.push(message.AlarmName);
@@ -74,21 +72,20 @@ function handleData(Sns, callback) {
       attachmentMarkdownLines.push('');
       attachmentMarkdownLines.push('*Trigger*');
       attachmentMarkdownLines.push(JSON.stringify(message.Trigger, null, 2));
-      attachment.text = attachmentMarkdownLines.join('\n');
+    } else {
+      for ( var key in message) {
+        attachmentMarkdownLines.push('*' + key + '*');
+        attachmentMarkdownLines.push(message[key]);
+        attachmentMarkdownLines.push('');
+      }
     }
-
-    if (message['Event Source'] && message.Resource) {
-      var attachmentMarkdownLines = [];
-      attachmentMarkdownLines.push('*Cluster Name*');
-      attachmentMarkdownLines.push(message.Resource);
-      attachment.text = attachmentMarkdownLines.join('\n');
-    }
-
+    attachment.text = attachmentMarkdownLines.join('\n');
 
     payload.attachments = [attachment];
   }
   catch (err) {
     // not json
+    console.log('err',err);
     payload.text = Sns.Message
   }
 
